@@ -26,7 +26,7 @@
       - Gitflow Workflow defines a strict branching model designed for project release
       - provides a robust framework for managing larger projects.
       - This workflow doesn’t add any new concepts or commands beyond what’s required for the Feature Branch Workflow.
-      - Feature branch workflow: [Release branch](./release-branch)
+      - Feature branch workflow: [Release branch](./release-branch.md)
   - Many publications promote Trunk-Based Development as we describe it here. Those include the best-selling ‘Continuous Delivery’ and ‘DevOps Handbook’.
 
 ---
