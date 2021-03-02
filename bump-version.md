@@ -140,3 +140,16 @@
       - As a common notion to be followed while undo a merged PR - Revert rather than Reset
         - Revert - creates a new commit that undoes the changes from a previous commit, This command adds new history to the project (it doesn't modify existing history) like- soft delete
         - Reset - It modifies the index or it changes branch head is currently pointing at and alter existing history like- hard delete
+        - So let us opt for revert of a merged PR which will create a new commit and then re-create a new PR (consist of deleted functionality). This will now bump-up the version of project but this time project version bump means not adding, but removing some previous existing functionalities.
+
+- Therefore both the problem statement related to this approach can be tackled theoretically, let us see in action.
+
+
+#### References 
+
+[Atlassian Revert and Rest]: https://www.atlassian.com/git/tutorials/resetting-checking-out-and-reverting#:~:text=Reverting%20undoes%20a%20commit%20by%20creating%20a%20new%20commit.&amp;text=Contrast%20this%20with%20git%20reset,changes%20on%20a%20private%20bra
+[NPM Unpublish]: https://docs.npmjs.com/cli/v7/commands/npm-unpublish
+[Conventional Commits]: https://www.conventionalcommits.org/en/v1.0.0/#summary
+[Medium]: https://medium.com/swlh/bump-bump-bump-d0dab616e83
+[Gist]: https://gist.github.com/tkqubo/6fdacac7dc4cc3252430
+
