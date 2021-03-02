@@ -78,7 +78,7 @@
     - **Problem**:
       - If multiple people have pull requests at that time, then this creates race-condition on who will win on the conflicting bump number
       - Development team is strictly creating feature branch for a given user-story that align with major/minor/patch version bumps (sound great hypothetically but not possible in real-project)
-      - What If PR is reverted after it was merged in future due to some issue, then version would not bumped-down/decremented thus causing irregularity in versioning (as that particular PR functionality is no-more in main branch but still that version of library exist in artifactory)
+      - What If we need to undo a merged PR due to some issue in future, then version would not bumped-down/decremented thus causing irregularity in versioning (as that particular PR functionality is no-more in main branch but still that version of library exist in artifactory)
 
   - Only When PR is merged to main branch successfully
 
@@ -93,7 +93,50 @@
 
     - **Problem**:
 
-      - What If PR is reverted after it was merged in future (same as-above)
+      - What If we need to undo a merged PR due to some issue in future (same as-above)
       - How would you define (i.e. on what basis) - that we should now bump - major / minor or patch version ?
-      - 
 
+- We need to choose any of the approach best suited for our project needs.
+
+
+
+#### Let us travel one-path to bump project version
+
+- Now let us opt for option - Only When PR is merged to main branch successfully then bump the version of project
+
+- We do have seen few problems which we might encounter with this approach but let us programmatically tackle it:
+
+  - How would you define (i.e. on what basis) - that we should now bump - major / minor or patch version.
+
+    - **Solutions**:
+
+      - Be very specific to commit messages while raising the PR, rather I can say use particular format or keywords in commit message that can decided which severity of version should be bumped-up.
+
+        - Conventional Commits - A specification for adding human and machine readable meaning to commit messages.
+          [Reference](https://www.conventionalcommits.org/en/v1.0.0/#summary )
+        - This technique/idea is been followed by **Angular Team** for their automation task on bumping of angular framework.
+
+      - Follow specific pattern/syntax while creating feature branches i.e. - 
+
+        | feature branch naming convention | Bump version          |
+        | -------------------------------- | --------------------- |
+        | major/<anything>                 | Bump-up Major version |
+        | minor/<anything>                 | Bump-up Minor version |
+        | patch/<anything>                 | Bump-up Patch version |
+        | feature/<anything>               | No bumping of version |
+        | hotfix/<anything>                | No bumping of version |
+
+        - This technique will also bump version based on the branch name used while raising a PR
+
+  - What If we need to undo a merged PR due to some issue in future, then version would not bumped-down/decremented thus causing irregularity in versioning 
+
+    - **Solutions**:
+      - When PR is reverted then you can directly un-publish a single version of your package i.e.-
+        `npm unpublish [<@scope>/]<pkg>@<version>`
+        - This technique will remove a package version from the registry, deleting its entry and removing the tarball.
+        - If you un-publish a package version, that specific name and version combination can never be reused.
+        - If you un-publish the entire package, you may not publish any new versions of that package until 28 days have passed.
+        - Understanding this I would highly suggest not follow opt for this hard-way solution
+      - As a common notion to be followed while undo a merged PR - Revert rather than Reset
+        - Revert - creates a new commit that undoes the changes from a previous commit, This command adds new history to the project (it doesn't modify existing history) like- soft delete
+        - Reset - It modifies the index or it changes branch head is currently pointing at and alter existing history like- hard delete
